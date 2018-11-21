@@ -22,7 +22,7 @@ foreach ($showall as $key => $value) {
   </head>
 <body>
 <p> <form action="create.php" method="post">
-  <input type="text" name="str">
+  <input required type="text" name="str">
   <input type="submit" value="Создать таблицу">
  </form></p>
 </body>

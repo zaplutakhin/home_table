@@ -1,3 +1,9 @@
+<?php 
+$i=0;
+include 'structure.php';
+echo "<p>Таблица: <b>$_POST[path]<b></p>";
+?>
+
 <html lang="ru">
   <head>
     <title></title>
@@ -5,43 +11,59 @@
     <link rel="stylesheet" type="text/css" href="style.css" >
   </head>
 <body>
-<form>
+
 <table border="1">
 <tr>
 <td><b>Поле</b></td>
 <td><b>Тип</b></td>
 </tr>
 
-<?php include 'showtable.php';
-$y=1;
-while ($y < $i) {
-?>
+<?php while ($i < $a) { ?>
 
 <tr>
-<td><p><b><?php echo $field[$y]?></b></p>
-  <form action="removefield.php" method="POST">
-    <input type="hidden" name="field" value="<?php echo $field[$y]?>">
-    <input type="hidden" name="table" value="<?php echo $tables[$y]?>">
+<td>
+<?php 
+echo $array[$i]['Field'];
+if ($a > 1) {
+?>
+  <p><form action="remove.php" method="POST">
+    <input type="hidden" name="field" value="<?php echo $array[$i]['Field'];?>">
+    <input type="hidden" name="table" value="<?php echo $currenttable?>">
     <input type="submit" name="del" value="Удалить">
-  </form>
+  </form></p>
 </td>
-<td><p><b><?php echo $type[$y]?></b></p>
-  <form action="updatefield.php" method="POST">
-    <input type="hidden" name="field" value="<?php echo $field[$y]?>">
-    <input type="hidden" name="table" value="<?php echo $tables[$y]?>">
+
+<?php } ?>
+<td>
+
+<?php echo $array[$i]['Type'];?>
+  <p><form action="updatefield.php" method="POST">
+    <input type="hidden" name="field" value="<?php echo $array[$i]['Field'];?>">
+    <input type="hidden" name="table" value="<?php echo $currenttable?>">
       <select name="selecttype">
       <option value="varchar(50)">varchar(50)</option>
       <option value="integer(5)">integer(5)</option>
       </select>
     <input type="submit" name="upd" value="Изменить">
-    </form>
+    </form></p>
 </td>
 </tr>
 
 <?php
-$y++;
+$i++; 
+}
+if ($a == 1) {
+?>
+  <p><form action="droptable.php" method="POST">
+    <input type="hidden" name="table" value="<?php echo $currenttable?>">
+    <input type="submit" name="del" value="Удалить таблицу">
+  </form></p>
+
+<?php
 }
 ?>
+</table>
+
 
 <p><button><a href="index.php">Назад</button></p>
 
